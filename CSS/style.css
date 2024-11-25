@@ -17,7 +17,7 @@ body {
   /* Heading Style */
   h1 {
     font-size: 2.5rem;
-    color: #ff6f61; /* Vibrant coral */
+    color: #ff6f61;
     margin-bottom: 20px;
     text-shadow: 2px 2px #333, 4px 4px #ffcc00;
   }
@@ -27,7 +27,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 15px;
+    gap: 10px;
     flex-wrap: wrap;
     margin: 20px 0;
     width: 90%;
@@ -49,7 +49,7 @@ body {
     font-family: inherit;
     box-shadow: 2px 2px 0px #333;
     cursor: pointer;
-    width: 12rem;
+    width: 150px; /* Fixed width for select boxes */
   }
   
   select:focus {
@@ -59,11 +59,10 @@ body {
   
   /* Button Styling */
   button {
-    margin: 6px 3px;
+    margin: 10px;
     padding: 12px 20px;
     font-size: 1rem;
     font-weight: bold;
-    text-transform: uppercase;
     color: #fff;
     background-color: #ff6f61;
     border: none;
@@ -71,6 +70,7 @@ body {
     cursor: pointer;
     box-shadow: 3px 3px 0px #333;
     transition: transform 0.2s ease-in-out;
+    width: 120px; /* Adjusted button width for consistency */
   }
   
   button:hover {
@@ -80,30 +80,21 @@ body {
   button:active {
     transform: translateY(2px);
   }
-
-  .main-section {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
   
   /* Display Div Styling */
   #display-excuses {
     visibility: hidden;
     margin-top: 20px;
-    padding: 20px;
+    padding: 15px;
     background: #fff;
     border: 2px solid #ffcc00;
     border-radius: 15px;
     box-shadow: 5px 5px 0px #333;
-    width: 80%;
-    max-width: 600px;
-    min-height: 150px;
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 10px;
     align-items: center;
-    overflow-y: auto;
+    width: inherit;
   }
   
   #display-excuses div {
@@ -111,15 +102,17 @@ body {
     padding: 12px 20px;
     border-radius: 10px;
     box-shadow: 2px 2px 0px #333;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     font-weight: bold;
     color: #333;
-    width: inherit;
+    width: 100%;
+    max-width: 500px;
+    word-wrap: break-word; /* Ensure long text wraps properly */
   }
   
   /* Scroll Styling */
   #display-excuses::-webkit-scrollbar {
-    width: 10px;
+    width: 8px;
   }
   
   #display-excuses::-webkit-scrollbar-thumb {
@@ -132,20 +125,27 @@ body {
   }
   
   /* Responsive Design */
-@media (max-width: 768px) {
+  @media (max-width: 768px) {
     .form-group {
       flex-direction: column;
       gap: 10px;
+      width: 100%;
+    }
+  
+    select {
+      width: 100%; /* Adjust select boxes to take full width */
+      max-width: 300px;
     }
   
     button {
+      width: 100%; /* Full-width buttons */
+      max-width: 200px;
       font-size: 0.9rem;
       padding: 10px 15px;
     }
   
     #display-excuses {
-      width: 95%; /* Take almost full width on smaller screens */
-      min-width: unset; /* Remove fixed minimum width */
+      width: 95%; /* Adjusted width for smaller screens */
     }
   }
   
@@ -156,10 +156,16 @@ body {
   
     button {
       font-size: 0.8rem;
+      width: 90%;
     }
   
     #display-excuses {
-      padding: 15px;
+      width: 21rem;
+    }
+  
+    #display-excuses div {
+      font-size: 1rem;
+      padding: 10px;
     }
   }
   
