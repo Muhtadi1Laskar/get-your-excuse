@@ -1,6 +1,6 @@
 /* General Styling */
 body {
-    font-family: 'Comic Sans MS', 'Comic Sans', cursive;
+    font-family: 'Comic Neue', 'Comic Sans MS', cursive, sans-serif;
     margin: 0;
     padding: 0;
     background: #fef4dc; /* Light beige comic book page */
@@ -16,7 +16,7 @@ body {
   
   /* Heading Style */
   h1 {
-    font-size: 2.5rem;
+    font-size: 3rem;
     color: #ff6f61;
     margin-bottom: 20px;
   }
@@ -44,10 +44,10 @@ body {
     border-radius: 8px;
     background-color: #fff;
     color: #333;
-    font-size: 1rem;
+    font-size: 25px;
     font-family: inherit;
     cursor: pointer;
-    width: 150px;
+    width: 250px;
   }
   
   select:focus {
@@ -89,7 +89,6 @@ body {
     background: #fff;
     border: 2px solid #ffcc00;
     border-radius: 15px;
-    box-shadow: 5px 5px 0px #333;
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -101,7 +100,6 @@ body {
     background-color: #ffe4b5;
     padding: 12px 20px;
     border-radius: 10px;
-    box-shadow: 2px 2px 0px #333;
     font-size: 1.1rem;
     font-weight: bold;
     color: #333;
