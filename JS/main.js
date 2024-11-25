@@ -1,62 +1,44 @@
-const makeAPICall = async (url) => {
-    try {
-        const response = await fetch(url);
-        if (response.ok) {
-            const data = response.json();
-            return data
-        } else {
-            console.error(`Error fetching data: ${response.error}`);
-        }
-    } catch (e) {
-        return e;
-    }
-}
+const ExcuseOptions = [
+    { value: "family", text: "Family" },
+    { value: "office", text: "Office" },
+    { value: "children", text: "Children" },
+    { value: "college", text: "College" },
+    { value: "party", text: "Party" },
+    { value: "funny", text: "funny" },
+    { value: "unbelievable", text: "Unbelievable" },
+    { value: "developers", text: "Developers" },
+    { value: "gaming", text: "Gaming" },
 
-const cleanResponseData = (data) => {
-    if (data.length === 0) {
-        return null;
-    }
-    return data.map(elem => {
-        return {
-            excuse: elem.excuse,
-            category: elem.category
-        }
-    });
-}
+];
 
-// (async() => {
-//     const URL = "https://excuser-three.vercel.app/v1/excuse/developers/4";
-//     const responseData = await makeAPICall(URL);
-//     const execuses = cleanResponseData(responseData);
-
-//     console.log(execuses);
-// })();
+const ExcuseNumber = Array.from({ length: 10 }, (_, i) => ({
+    value: i + 1,
+    text: `${i + 1}`,
+}));
 
 const Model = {
     state: {
-        excuses: []
+        excuses: [],
     },
 
     async fetchData(URL) {
         try {
-            console.log(URL);
             const response = await fetch(URL);
-            if(!response.ok) {
+            if (!response.ok) {
                 throw new Error("Failed to fetch excuses");
             }
             const data = await response.json();
-            this.state.excuses = data.map(elem => {
-                return {
-                    excuse: elem.excuse,
-                    category: elem.category
-                }
-            })
+            this.state.excuses = data.map((elem) => ({
+                excuse: elem.excuse,
+                category: elem.category,
+            }));
         } catch (error) {
-            this.state.excuses = "Error fetching joke";
+            this.state.excuses = [];
             console.error(error);
         }
         this.notify();
     },
+
     buildURL(type, totalExcuses) {
         return `https://excuser-three.vercel.app/v1/excuse/${type}/${totalExcuses}`;
     },
@@ -67,46 +49,44 @@ const Model = {
     },
 
     notify() {
-        this.observers.forEach(observer => observer());
-    }
+        this.observers.forEach((observer) => observer());
+    },
 };
 
 const View = {
     init() {
-        this.excusesTag = document.getElementById('excuse-list');
-        this.numberTag = document.getElementById('number-of-execuse');
-        this.fetchButton = document.getElementById('btn');
-        this.clearButton = document.getElementById('reset');
-        this.displayTag = document.getElementById('display-excuses');
-        this.renderOptions();
+        this.excusesTag = document.getElementById("excuse-list");
+        this.numberTag = document.getElementById("total-excuse");
+        this.fetchButton = document.getElementById("btn");
+        this.clearButton = document.getElementById("reset");
+        this.displayTag = document.getElementById("display-excuses");
+
+        this.renderOptions(this.excusesTag, ExcuseOptions);
+        this.renderOptions(this.numberTag, ExcuseNumber);
     },
 
-    renderOptions() {
-        ExcuseOptions.forEach(elem => {
-            const optionTag = document.createElement('option');
-
+    renderOptions(tag, options) {
+        options.forEach((elem) => {
+            const optionTag = document.createElement("option");
             optionTag.value = elem.value;
             optionTag.text = elem.text;
-
-            this.excusesTag.appendChild(optionTag);
+            tag.appendChild(optionTag);
         });
     },
 
     update() {
         this.clearUI();
-        Model.state.excuses.forEach(elem => {
-            const newDiv = document.createElement('div');
-
-            newDiv.innerText = elem.excuse;
-
+        Model.state.excuses.forEach((elem) => {
+            const newDiv = document.createElement("div");
+            newDiv.innerText = `${elem.category}: ${elem.excuse}`;
             this.displayTag.appendChild(newDiv);
-        })
+        });
     },
 
     clearUI() {
-        this.displayTag.innerHTML = '';
-    }
-}
+        this.displayTag.innerHTML = "";
+    },
+};
 
 const Controller = {
     init() {
@@ -114,9 +94,15 @@ const Controller = {
 
         Model.subscribe(() => View.update());
 
-        View.fetchButton.addEventListener('click', () => Model.fetchData(Model.buildURL("developers", 10)));
-        View.clearButton.addEventListener('click', () => View.clearUI());
-    }
-}
+        View.fetchButton.addEventListener("click", () => {
+            const selectedType = View.excusesTag.value;
+            const totalExcuses = View.numberTag.value || 1;
+            const url = Model.buildURL(selectedType, totalExcuses);
+            Model.fetchData(url);
+        });
+
+        View.clearButton.addEventListener("click", () => View.clearUI());
+    },
+};
 
 Controller.init();
