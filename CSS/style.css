@@ -131,8 +131,9 @@ body {
     }
   
     select {
-      width: 100%; /* Adjust select boxes to take full width */
-      max-width: 300px;
+      /* width: 100%; Adjust select boxes to take full width */
+      /* max-width: 300px; */
+      width: 250px;
     }
   
     button {
