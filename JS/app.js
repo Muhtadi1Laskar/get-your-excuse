@@ -78,13 +78,15 @@ const View = {
         this.clearUI();
         Model.state.excuses.forEach((elem) => {
             const newDiv = document.createElement("div");
-            newDiv.innerText = `${elem.category}: ${elem.excuse}`;
+            newDiv.innerText = `${elem.excuse}`;
             this.displayTag.appendChild(newDiv);
         });
+        this.displayTag.style.visibility  = "visible";
     },
 
     clearUI() {
         this.displayTag.innerHTML = "";
+        this.displayTag.style.visibility  = "hidden";
     },
 };
 
@@ -106,5 +108,3 @@ const Controller = {
 };
 
 Controller.init();
-
-console.log(Model.observers);
