@@ -70,11 +70,6 @@ body {
   
   button:hover {
     transform: translateY(-3px);
-    color: #ff6f61;
-    border: #ffcc00;
-    background-color: #ffcc00;
-    /* font-style: italic; */
-    font-size: 21px;
   }
   
   button:active {
@@ -131,8 +126,6 @@ body {
     }
   
     select {
-      /* width: 100%; Adjust select boxes to take full width */
-      /* max-width: 300px; */
       width: 250px;
     }
   
