@@ -39,6 +39,7 @@ const Model = {
 
     async fetchData(URL) {
         try {
+            console.log(URL);
             const response = await fetch(URL);
             if(!response.ok) {
                 throw new Error("Failed to fetch excuses");
@@ -56,6 +57,10 @@ const Model = {
         }
         this.notify();
     },
+    buildURL(type, totalExcuses) {
+        return `https://excuser-three.vercel.app/v1/excuse/${type}/${totalExcuses}`;
+    },
+
     observers: [],
     subscribe(observer) {
         this.observers.push(observer);
@@ -68,6 +73,50 @@ const Model = {
 
 const View = {
     init() {
+        this.excusesTag = document.getElementById('excuse-list');
+        this.numberTag = document.getElementById('number-of-execuse');
+        this.fetchButton = document.getElementById('btn');
+        this.clearButton = document.getElementById('reset');
+        this.displayTag = document.getElementById('display-excuses');
+        this.renderOptions();
+    },
 
+    renderOptions() {
+        ExcuseOptions.forEach(elem => {
+            const optionTag = document.createElement('option');
+
+            optionTag.value = elem.value;
+            optionTag.text = elem.text;
+
+            this.excusesTag.appendChild(optionTag);
+        });
+    },
+
+    update() {
+        this.clearUI();
+        Model.state.excuses.forEach(elem => {
+            const newDiv = document.createElement('div');
+
+            newDiv.innerText = elem.excuse;
+
+            this.displayTag.appendChild(newDiv);
+        })
+    },
+
+    clearUI() {
+        this.displayTag.innerHTML = '';
     }
 }
+
+const Controller = {
+    init() {
+        View.init();
+
+        Model.subscribe(() => View.update());
+
+        View.fetchButton.addEventListener('click', () => Model.fetchData(Model.buildURL("developers", 10)));
+        View.clearButton.addEventListener('click', () => View.clearUI());
+    }
+}
+
+Controller.init();
