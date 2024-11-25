@@ -106,3 +106,5 @@ const Controller = {
 };
 
 Controller.init();
+
+console.log(Model.observers);

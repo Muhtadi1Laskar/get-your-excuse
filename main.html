@@ -1,22 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Get You Excuses</title>
-</head>
-<body>
-    <div class="container">
-        <div class="select-section">
-            <select name="excuse-list" id="excuse-list"></select>
-            <select name="number-of-excuse" id="total-excuse"></select>
-        </div>
-        <button type="button" class="btn", id="btn">Fetch Excuses</button>
-        <button type="button" class="reset", id="reset">Clear</button>
-        <div class="display-excuses" id="display-excuses"></div>
-    </div>
 
-    
-    <script src="JS/main.js"></script>
-</body>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Excuse Generator</title>
+    </head>
+
+    <body>
+        <h1>Excuse Generator</h1>
+        <label for="excuse-list">Excuse Type:</label>
+        <select id="excuse-list"></select>
+
+        <label for="total-excuse">Number of Excuses:</label>
+        <select id="total-excuse"></select>
+
+        <button id="btn">Fetch Excuses</button>
+        <button id="reset">Clear</button>
+
+        <div id="display-excuses"></div>
+
+        <script src="JS/app.js"></script>
+    </body>
+
 </html>
